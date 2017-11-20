@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Message_input" Height="495.766" Width="549.635">
     <Grid>
-        <Label Content="------------" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="269,29,0,0" Height="36" Width="225"/>
+        <Label Content="------------" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="216,41,0,0" Height="36" Width="225"/>
         <TextBox x:Name="txtMessageBox" HorizontalAlignment="Left" Height="238" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="451" Margin="43,153,0,0"/>
-        <TextBox x:Name="txtSender" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Margin="43,108,0,0"/>
+        <TextBox x:Name="txtSender" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="43,108,0,0" TextChanged="txtSender_TextChanged"/>
         <TextBox x:Name="txtSubject" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Margin="374,108,0,0"/>
         <Label Content="Message type" HorizontalAlignment="Left" Margin="71,41,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btnSend" Content="send" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="205,422,0,0" RenderTransformOrigin="1.146,4.85" Click="btnSend_Click"/>

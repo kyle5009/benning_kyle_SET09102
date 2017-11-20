@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,12 +31,20 @@ namespace Euston_Leisure_Messaging
 
         bool emailCheck(string emailtest)
         {
-            try
+            if (txtSender.Text.Length > 0)
             {
-                MailAddress testEmail = new MailAddress(emailtest);
-                return true;
+                try
+                {
+
+                    MailAddress testEmail = new MailAddress(emailtest);
+                    return true;
+                }
+                catch (FormatException)
+                {
+                    return false;
+                }
             }
-            catch (FormatException)
+            else
             {
                 return false;
             }
@@ -43,25 +52,34 @@ namespace Euston_Leisure_Messaging
 
         private void btnSend_Click(object sender, RoutedEventArgs e)
         {
+                    
+        }
+
+        private void txtSender_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
             s.Tweet = false;
             s.Sms = false;
             s.Email = false;
 
-            if (txtSender.Text[0] == '@')
+              if (txtSender.Text.Length > 0 && txtSender.Text[0] == '@')
             {
                 s.Tweet = true;
                 MessageBox.Show("This is a tweet");
-            }
-
-            if (txtSender.Text.Contains('@'))
-            {
-                s.Sms = true;
             }
 
             if (emailCheck(txtSender.Text))
             {
                 s.Email = true;
                 MessageBox.Show("This is an email");
+            }
+
+
+            Regex phoneCheck = new Regex(@"\+\d{11,15}");
+            if (phoneCheck.IsMatch(txtSender.Text))
+            {              
+                s.Sms = true;
+                MessageBox.Show("This is a sms");
             }
         }
     }
