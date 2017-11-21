@@ -50,6 +50,8 @@ namespace Euston_Leisure_Messaging
             }
         }
 
+        if(lblMessageType.content = )
+
         private void btnSend_Click(object sender, RoutedEventArgs e)
         {
                     
@@ -65,13 +67,13 @@ namespace Euston_Leisure_Messaging
               if (txtSender.Text.Length > 0 && txtSender.Text[0] == '@')
             {
                 s.Tweet = true;
-                MessageBox.Show("This is a tweet");
+                lblMessageType.Content = "Tweet";
             }
 
             if (emailCheck(txtSender.Text))
             {
                 s.Email = true;
-                MessageBox.Show("This is an email");
+                lblMessageType.Content = "Email";
             }
 
 
@@ -79,8 +81,26 @@ namespace Euston_Leisure_Messaging
             if (phoneCheck.IsMatch(txtSender.Text))
             {              
                 s.Sms = true;
-                MessageBox.Show("This is a sms");
+                lblMessageType.Content = "SMS";
             }
+
+            if (lblMessageType.Content == "Email")
+            {
+                txtSubject.IsEnabled = true;
+            }
+
+            if (lblMessageType.Content == "Tweet")
+            {
+                txtSubject.IsEnabled = false;
+            }
+
+            if (lblMessageType.Content == "SMS")
+            {
+                txtSubject.IsEnabled = false;
+            }
+
+
         }
+
     }
 }
