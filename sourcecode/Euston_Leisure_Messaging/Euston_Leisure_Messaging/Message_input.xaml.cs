@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
@@ -13,6 +14,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
+
 
 namespace Euston_Leisure_Messaging
 {
@@ -50,11 +53,45 @@ namespace Euston_Leisure_Messaging
             }
         }
 
-        if(lblMessageType.content = )
+        
 
         private void btnSend_Click(object sender, RoutedEventArgs e)
         {
-                    
+            Random generate_ID = new Random();
+            if (lblMessageType.Content == "Tweet")
+            {
+                int Rand_ID = generate_ID.Next(000000000, 999999999);
+                lblMessageID.Content = "T" + Rand_ID;
+            }
+
+            else if (lblMessageType.Content == "SMS")
+            {
+                int Rand_ID = generate_ID.Next(000000000, 999999999);
+                lblMessageID.Content = "S" + Rand_ID;
+            }
+
+            else if (lblMessageType.Content == "Email")
+            {
+                int Rand_ID = generate_ID.Next(000000000, 999999999);
+                lblMessageID.Content = "E" + Rand_ID;
+            }
+
+            Sender json = new Sender()
+            {
+                Message_type = Convert.ToString(lblMessageType.Content),
+                Message_ID = Convert.ToString(lblMessageID.Content),
+                Sender = txtSender.Text,
+                Subject = txtSubject.Text,
+                Message = txtMessage.Text
+            };
+            
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + json.Message_ID + ".txt", JsonConvert.SerializeObject(json));
+
+            using (StreamWriter file = File.CreateText(AppDomain.CurrentDomain.BaseDirectory + @"\" + json.Message_ID + ".txt"))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, json);
+            }
         }
 
         private void txtSender_TextChanged(object sender, TextChangedEventArgs e)
@@ -64,7 +101,7 @@ namespace Euston_Leisure_Messaging
             s.Sms = false;
             s.Email = false;
 
-              if (txtSender.Text.Length > 0 && txtSender.Text[0] == '@')
+            if (txtSender.Text.Length > 0 && txtSender.Text[0] == '@')
             {
                 s.Tweet = true;
                 lblMessageType.Content = "Tweet";
@@ -79,7 +116,7 @@ namespace Euston_Leisure_Messaging
 
             Regex phoneCheck = new Regex(@"\+\d{11,15}");
             if (phoneCheck.IsMatch(txtSender.Text))
-            {              
+            {
                 s.Sms = true;
                 lblMessageType.Content = "SMS";
             }
@@ -99,7 +136,7 @@ namespace Euston_Leisure_Messaging
                 txtSubject.IsEnabled = false;
             }
 
-
+            
         }
 
     }

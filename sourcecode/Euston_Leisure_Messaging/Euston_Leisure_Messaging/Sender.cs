@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace Euston_Leisure_Messaging
 {
-    public class Sender
+    public class Sender : JSON
     {
         private bool email;
         private bool tweet;
         private bool sms;
+        
+
 
         public bool Email
         {
@@ -47,5 +49,7 @@ namespace Euston_Leisure_Messaging
                 sms = value;
             }
         }
+
+        
     }
 }
