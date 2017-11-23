@@ -8,7 +8,7 @@ namespace Euston_Leisure_Messaging
 {
     public class JSON
     {
-        public string message_type;
+        private string message_type;
         private string message_ID;
         private string sender;
         private string subject;

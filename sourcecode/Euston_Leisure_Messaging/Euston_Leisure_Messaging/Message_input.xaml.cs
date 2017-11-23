@@ -100,15 +100,46 @@ namespace Euston_Leisure_Messaging
                     serializer.Serialize(file, json);
                 }
 
+                List<string> mentions = new List<string>();
+
+                if (lblMessageType.Content == "Tweet")
+                {
+                    string[] stringArray = txtMessage.Text.Split(' ');
+                    foreach (string s in stringArray)
+                    {
+                        if (s[0] == '@')
+                        {
+                            mentions.Add(s);
+                        }
+                    }
+                }
+
+                List<string> hashtag = new List<string>();
+
+                if (lblMessageType.Content == "Tweet")
+                {
+                    string[] stringArray1 = txtMessage.Text.Split(' ');
+                    foreach (string s1 in stringArray1)
+                    {
+                        if (s1[0] == '#')
+                        {
+                            hashtag.Add(s1);
+                        }
+                    }
+                }
 
                 MainWindow main_window = new MainWindow();
-                main_window.lstMessages.Items.Add(Convert.ToString(lblMessageID.Content) + "\n" + txtSender.Text + "\n" + txtSubject.Text + "\n" + txtMessage.Text);
+                string MentionsArray = string.Join(",", mentions.ToArray());
+                string HashtagArray = string.Join(",", hashtag.ToArray());
+                main_window.lstMessages.Items.Add("Message ID: " + Convert.ToString(lblMessageID.Content) + "\n" + "Sender: " + txtSender.Text + "\n" + "Subject: " + txtSubject.Text + "\n" + "Message: " + txtMessage.Text + "\n" + "Mention: " + MentionsArray + "\n" + "Hashtag: " + HashtagArray);
                 main_window.Show();
 
 
             }
-           
+
             
+            
+
         }
 
         private void txtSender_TextChanged(object sender, TextChangedEventArgs e)
@@ -185,3 +216,5 @@ namespace Euston_Leisure_Messaging
 
     }
 }
+
+
