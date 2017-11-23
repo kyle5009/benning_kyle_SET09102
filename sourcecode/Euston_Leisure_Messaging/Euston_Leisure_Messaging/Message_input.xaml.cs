@@ -57,45 +57,66 @@ namespace Euston_Leisure_Messaging
 
         private void btnSend_Click(object sender, RoutedEventArgs e)
         {
-            Random generate_ID = new Random();
-            if (lblMessageType.Content == "Tweet")
+            if (string.IsNullOrEmpty(txtSender.Text) || (string.IsNullOrEmpty(txtMessage.Text)))
             {
-                int Rand_ID = generate_ID.Next(000000000, 999999999);
-                lblMessageID.Content = "T" + Rand_ID;
+                MessageBox.Show("Sender and message box cannot be empty");
             }
 
-            else if (lblMessageType.Content == "SMS")
+            else
             {
-                int Rand_ID = generate_ID.Next(000000000, 999999999);
-                lblMessageID.Content = "S" + Rand_ID;
-            }
+                Random generate_ID = new Random();
+                if (lblMessageType.Content == "Tweet")
+                {
+                    int Rand_ID = generate_ID.Next(000000000, 999999999);
+                    lblMessageID.Content = "T" + Rand_ID;
+                }
 
-            else if (lblMessageType.Content == "Email")
-            {
-                int Rand_ID = generate_ID.Next(000000000, 999999999);
-                lblMessageID.Content = "E" + Rand_ID;
-            }
+                else if (lblMessageType.Content == "SMS")
+                {
+                    int Rand_ID = generate_ID.Next(000000000, 999999999);
+                    lblMessageID.Content = "S" + Rand_ID;
+                }
 
-            Sender json = new Sender()
-            {
-                Message_type = Convert.ToString(lblMessageType.Content),
-                Message_ID = Convert.ToString(lblMessageID.Content),
-                Sender = txtSender.Text,
-                Subject = txtSubject.Text,
-                Message = txtMessage.Text
-            };
+                else if (lblMessageType.Content == "Email")
+                {
+                    int Rand_ID = generate_ID.Next(000000000, 999999999);
+                    lblMessageID.Content = "E" + Rand_ID;
+                }
+
+                Sender json = new Sender()
+                {
+                    Message_type = Convert.ToString(lblMessageType.Content),
+                    Message_ID = Convert.ToString(lblMessageID.Content),
+                    Sender = txtSender.Text,
+                    Subject = txtSubject.Text,
+                    Message = txtMessage.Text
+                };
+
+                File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + json.Message_ID + ".txt", JsonConvert.SerializeObject(json));
+
+                using (StreamWriter file = File.CreateText(AppDomain.CurrentDomain.BaseDirectory + @"\" + json.Message_ID + ".txt"))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    serializer.Serialize(file, json);
+                }
+
+
+                MainWindow main_window = new MainWindow();
+                main_window.lstMessages.Items.Add(Convert.ToString(lblMessageID.Content) + "\n" + txtSender.Text + "\n" + txtSubject.Text + "\n" + txtMessage.Text);
+                main_window.Show();
+
+
+            }
+           
             
-            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + json.Message_ID + ".txt", JsonConvert.SerializeObject(json));
-
-            using (StreamWriter file = File.CreateText(AppDomain.CurrentDomain.BaseDirectory + @"\" + json.Message_ID + ".txt"))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(file, json);
-            }
         }
 
         private void txtSender_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (lblMessageType.Content == "Tweet")
+            {
+                txtMessage.MaxLength = 140;
+            }
 
             s.Tweet = false;
             s.Sms = false;
@@ -137,6 +158,29 @@ namespace Euston_Leisure_Messaging
             }
 
             
+        }
+
+        private void txtSubject_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            txtSubject.MaxLength = 20;
+        }
+
+        private void txtMessage_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (lblMessageType.Content == "Tweet")
+            {
+                txtMessage.MaxLength = 140;
+            }
+
+            if (lblMessageType.Content == "Email")
+            {
+                txtMessage.MaxLength = 1028;
+            }
+
+            if (lblMessageType.Content == "SMS")
+            {
+                txtMessage.MaxLength = 140;
+            }
         }
 
     }

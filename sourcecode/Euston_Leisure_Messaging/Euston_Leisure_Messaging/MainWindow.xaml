@@ -4,8 +4,8 @@
         Title="MainWindow" Height="647.015" Width="811.568">
     <Grid>
         <Label Content="Euston Leisure Message Filtering Service" HorizontalAlignment="Left" Margin="198,24,0,0" VerticalAlignment="Top" Height="39" Width="399" FontSize="20" FontWeight="Bold"/>
-        <Button x:Name="btnInput" Content="Message Input" HorizontalAlignment="Left" VerticalAlignment="Top" Width="219" Margin="262,127,0,0" Height="43" Click="btnInput_Click"/>
-        <TextBox HorizontalAlignment="Left" Height="283" TextWrapping="Wrap" VerticalAlignment="Top" Width="631" Margin="83,311,0,0"/>
+        <Button x:Name="btnInput" Content="Message Input" HorizontalAlignment="Left" VerticalAlignment="Top" Width="219" Margin="198,101,0,0" Height="43" Click="btnInput_Click"/>
+        <ListBox x:Name="lstMessages" HorizontalAlignment="Left" Height="336" Margin="64,249,0,0" VerticalAlignment="Top" Width="677"/>
 
     </Grid>
 </Window>

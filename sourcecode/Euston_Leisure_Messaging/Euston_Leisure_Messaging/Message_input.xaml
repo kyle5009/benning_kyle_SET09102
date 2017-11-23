@@ -4,9 +4,9 @@
         Title="Message_input" Height="495.766" Width="549.635">
     <Grid>
         <Label x:Name="lblMessageType" Content="------------" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="132,23,0,0" Height="36" Width="95"/>
-        <TextBox x:Name="txtMessage" HorizontalAlignment="Left" Height="238" TextWrapping="Wrap" VerticalAlignment="Top" Width="451" Margin="43,159,0,0"/>
+        <TextBox x:Name="txtMessage" HorizontalAlignment="Left" Height="238" TextWrapping="Wrap" VerticalAlignment="Top" Width="451" Margin="43,159,0,0" TextChanged="txtMessage_TextChanged"/>
         <TextBox x:Name="txtSender" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Margin="132,59,0,0" TextChanged="txtSender_TextChanged"/>
-        <TextBox x:Name="txtSubject" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Margin="132,103,0,0"/>
+        <TextBox x:Name="txtSubject" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Margin="132,103,0,0" TextChanged="txtSubject_TextChanged"/>
         <Label Content="Message type" HorizontalAlignment="Left" Margin="43,23,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btnSend" Content="send" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="210,424,0,0" RenderTransformOrigin="1.146,4.85" Click="btnSend_Click"/>
         <Label Content="Subject" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="43,100,0,0"/>
